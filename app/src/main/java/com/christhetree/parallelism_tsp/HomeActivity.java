@@ -2,6 +2,12 @@ package com.christhetree.parallelism_tsp;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.BatteryManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,8 +15,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.io.File;
+import java.io.FileFilter;
+import java.util.regex.Pattern;
+
 
 public class HomeActivity extends Activity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,11 +70,66 @@ public class HomeActivity extends Activity {
             button1.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     editText1.setText("");
+//                    int numberOfProcessors = Runtime.getRuntime().availableProcessors();
+//                    int numberOfProcessors = getNumCores();
+//                    int numberOfProcessors = 8;
+//                    editText1.setText(Integer.toString(numberOfProcessors));
+
+
 //                    test.CallCommand(0, new GreatestFactor(), (long) 20036756, editText1);
-                    new GreatestFactorAsyncTask(editText1).execute((long) 20036756);
+//                    new GreatestFactorAsyncTask(new GreatestFactor(), editText1).execute((long) 20036756);
+                    Context context = getActivity();
+//                    IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+//                    Intent batteryStatus = context.registerReceiver(null, ifilter);
+                    // Are we charging / charged?
+//                    int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+//                    boolean isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
+//                            status == BatteryManager.BATTERY_STATUS_FULL;
+                    // How are we charging?
+//                    int chargePlug = batteryStatus.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
+//                    boolean usbCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_USB;
+//                    boolean acCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_AC;
+//                    editText1.setText(Boolean.toString(isCharging) + Boolean.toString(usbCharge) + Boolean.toString(acCharge));
+
+                    ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                    NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+                    boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+                    boolean isWiFi = activeNetwork.getType() == ConnectivityManager.TYPE_WIFI;
+                    boolean isData = activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE;
+                    boolean isBluetooth = activeNetwork.getType() == ConnectivityManager.TYPE_BLUETOOTH;
+                    editText1.setText(Boolean.toString(isConnected) + Boolean.toString(isWiFi) + Boolean.toString(isData) + Boolean.toString(isBluetooth));
+
+
+
                 }
             });
             return rootView;
+        }
+
+        private int getNumCores() {
+            //Private Class to display only CPU devices in the directory listing
+            class CpuFilter implements FileFilter {
+                @Override
+                public boolean accept(File pathname) {
+                    //Check if filename is "cpu", followed by a single digit number
+                    if(Pattern.matches("cpu[0-9]+", pathname.getName())) {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+
+            try {
+                //Get directory containing CPU info
+                File dir = new File("/sys/devices/system/cpu/");
+                //Filter to only list the devices we care about
+                File[] files = dir.listFiles(new CpuFilter());
+                //Return the number of cores (virtual CPU devices)
+                return files.length;
+            } catch(Exception e) {
+                //Default to return 1 core
+                return 1;
+            }
         }
     }
 }

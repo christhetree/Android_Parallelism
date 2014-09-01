@@ -1,36 +1,25 @@
 package com.christhetree.parallelism_tsp;
 
 import android.os.AsyncTask;
-import android.view.View;
 import android.widget.EditText;
 
-public class GreatestFactorAsyncTask extends AsyncTask<Long, Integer, Long> {
+public class GreatestFactorAsyncTask extends AsyncTask<Object, Integer, Object> { // make progress double
+    private Command command;
     private EditText editText;
 
-    public GreatestFactorAsyncTask(final View view) {
-        editText = (EditText) view;
+    public GreatestFactorAsyncTask(final Command command, final EditText editTest) {
+        this.command = command;
+        this.editText = editTest;
     }
 
     @Override
     protected void onPreExecute() {
-        editText.setText("0%");
+//        editText.setText("0%");
     }
 
     @Override
-    protected Long doInBackground(final Long... params) {
-        long number = params[0];
-        long greatestFactor = 0;
-        int percentage = 0;
-        for(long i = 2; i < number; ++i) {
-            if(number % i == 0) {
-                greatestFactor = i;
-            }
-            percentage = (int)((((double) i) / ((double) number)) * 100.0);
-            if(i % (number / 100) == 0) {
-                publishProgress(percentage);
-            }
-        }
-        return greatestFactor;
+    protected Object doInBackground(final Object... params) {
+        return command.executeCommand(params);
     }
 
     @Override
@@ -39,8 +28,8 @@ public class GreatestFactorAsyncTask extends AsyncTask<Long, Integer, Long> {
     }
 
     @Override
-    protected void onPostExecute(final Long result) {
-        editText.setText("Greatest factor is: " + Long.toString(result));
+    protected void onPostExecute(final Object result) {
+        editText.setText("Greatest factor is: " + Long.toString((Long) result));
     }
 }
 
