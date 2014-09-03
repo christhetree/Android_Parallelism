@@ -17,6 +17,8 @@ import android.widget.EditText;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
 import java.util.regex.Pattern;
 
 
@@ -70,6 +72,94 @@ public class HomeActivity extends Activity {
             button1.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     editText1.setText("");
+
+//                    ParallelCallable herpaderp = new ParallelCallable((long) 20036756);
+//                    long derp = -2;
+//                    try {
+//                        derp = (Long) herpaderp.call();
+//                        derp = DifferentTasks.GreatestFactor2(1234);
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                    editText1.setText(Long.toString(derp));
+//                    editText1.setText(Long.toString(DifferentTasks.GreatestFactor2((long) 235235)));
+
+
+//                    ParallelFutureTask test = new ParallelFutureTask(new ParallelCallable((long) 40000000, (long) 2, (long) 40000000));
+//                    ParallelFutureTask test = new ParallelFutureTask(new ParallelCallable((long) 40000000, (long) 2, (long) 20000000));
+//                    ParallelFutureTask test = new ParallelFutureTask(new ParallelCallable((long) 40000000, (long) 2, (long) 13000000));
+                    ParallelFutureTask test = new ParallelFutureTask(new ParallelCallable((long) 40000000, (long) 2, (long) 10000000));
+
+//                    ParallelFutureTask test2 = new ParallelFutureTask(new ParallelCallable((long) 40000000, (long) 1, (long) 1));
+//                    ParallelFutureTask test2 = new ParallelFutureTask(new ParallelCallable((long) 40000000, (long) 20000000, (long) 40000000));
+//                    ParallelFutureTask test2 = new ParallelFutureTask(new ParallelCallable((long) 40000000, (long) 13000000, (long) 26000000));
+                    ParallelFutureTask test2 = new ParallelFutureTask(new ParallelCallable((long) 40000000, (long) 10000000, (long) 20000000));
+//
+//                    ParallelFutureTask test3 = new ParallelFutureTask(new ParallelCallable((long) 40000000, (long) 1, (long) 1));
+//                    ParallelFutureTask test3 = new ParallelFutureTask(new ParallelCallable((long) 40000000, (long) 26000000, (long) 40000000));
+                    ParallelFutureTask test3 = new ParallelFutureTask(new ParallelCallable((long) 40000000, (long) 20000000, (long) 30000000));
+//
+//                    ParallelFutureTask test4 = new ParallelFutureTask(new ParallelCallable((long) 40000000, (long) 1, (long) 1));
+                    ParallelFutureTask test4 = new ParallelFutureTask(new ParallelCallable((long) 40000000, (long) 30000000, (long) 40000000));
+
+//                    ThreadPoolManager.sInstance.mTPE.execute(test);
+
+                    ThreadPoolManager hi = new ThreadPoolManager();
+                    hi.mTPE.execute(test);
+                    hi.mTPE.execute(test2);
+                    hi.mTPE.execute(test3);
+                    hi.mTPE.execute(test4);
+                    long heyhoe = -3;
+                    try {
+                        heyhoe = (Long) test.get();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    }
+                    long heyhoe2 = -4;
+                    try {
+                        heyhoe2 = (Long) test2.get();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    }
+                    long heyhoe3 = -5;
+                    try {
+                        heyhoe3 = (Long) test3.get();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    }
+                    long heyhoe4 = -6;
+                    try {
+                        heyhoe4 = (Long) test4.get();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    }
+
+                    long result = Math.max(heyhoe4, (Math.max(heyhoe3, (Math.max(heyhoe, heyhoe2)))));
+                    editText1.setText(Long.toString(result));
+
+                    hi.mTPE.shutdown();
+
+
+
+//                    test.run();
+//                    long merp = -1;
+//                    try {
+//                        merp = (Long) test.get();
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    } catch (ExecutionException e) {
+//                        e.printStackTrace();
+//                    }
+//                    editText1.setText(Long.toString(merp));
+
 //                    int numberOfProcessors = Runtime.getRuntime().availableProcessors();
 //                    int numberOfProcessors = getNumCores();
 //                    int numberOfProcessors = 8;
@@ -78,7 +168,7 @@ public class HomeActivity extends Activity {
 
 //                    test.CallCommand(0, new GreatestFactor(), (long) 20036756, editText1);
 //                    new GreatestFactorAsyncTask(new GreatestFactor(), editText1).execute((long) 20036756);
-                    Context context = getActivity();
+//                    Context context = getActivity();
 //                    IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
 //                    Intent batteryStatus = context.registerReceiver(null, ifilter);
                     // Are we charging / charged?
@@ -91,13 +181,13 @@ public class HomeActivity extends Activity {
 //                    boolean acCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_AC;
 //                    editText1.setText(Boolean.toString(isCharging) + Boolean.toString(usbCharge) + Boolean.toString(acCharge));
 
-                    ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-                    NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-                    boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
-                    boolean isWiFi = activeNetwork.getType() == ConnectivityManager.TYPE_WIFI;
-                    boolean isData = activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE;
-                    boolean isBluetooth = activeNetwork.getType() == ConnectivityManager.TYPE_BLUETOOTH;
-                    editText1.setText(Boolean.toString(isConnected) + Boolean.toString(isWiFi) + Boolean.toString(isData) + Boolean.toString(isBluetooth));
+//                    ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+//                    NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+//                    boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+//                    boolean isWiFi = activeNetwork.getType() == ConnectivityManager.TYPE_WIFI;
+//                    boolean isData = activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE;
+//                    boolean isBluetooth = activeNetwork.getType() == ConnectivityManager.TYPE_BLUETOOTH;
+//                    editText1.setText(Boolean.toString(isConnected) + Boolean.toString(isWiFi) + Boolean.toString(isData) + Boolean.toString(isBluetooth));
 
 
 
