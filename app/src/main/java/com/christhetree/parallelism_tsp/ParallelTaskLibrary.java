@@ -3,7 +3,19 @@ package com.christhetree.parallelism_tsp;
 /**
  * Created by christhetree on 01/09/14.
  */
-public class DifferentTasks {
+public class ParallelTaskLibrary {
+
+
+    public class GreatestFactor3 implements Command {
+
+        @Override
+        public Object executeCommand(Object... params) {
+            return null;
+        }
+    }
+
+
+
 
     public static long GreatestFactor2(final Object... params) {
         long number = (Long) params[0];

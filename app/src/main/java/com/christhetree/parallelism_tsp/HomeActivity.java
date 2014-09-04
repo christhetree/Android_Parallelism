@@ -77,38 +77,38 @@ public class HomeActivity extends Activity {
 //                    long derp = -2;
 //                    try {
 //                        derp = (Long) herpaderp.call();
-//                        derp = DifferentTasks.GreatestFactor2(1234);
+//                        derp = ParallelTaskLibrary.GreatestFactor2(1234);
 //                    } catch (Exception e) {
 //                        e.printStackTrace();
 //                    }
 //                    editText1.setText(Long.toString(derp));
-//                    editText1.setText(Long.toString(DifferentTasks.GreatestFactor2((long) 235235)));
+//                    editText1.setText(Long.toString(ParallelTaskLibrary.GreatestFactor2((long) 235235)));
 
 
-//                    ParallelFutureTask test = new ParallelFutureTask(new ParallelCallable((long) 40000000, (long) 2, (long) 40000000));
-//                    ParallelFutureTask test = new ParallelFutureTask(new ParallelCallable((long) 40000000, (long) 2, (long) 20000000));
-//                    ParallelFutureTask test = new ParallelFutureTask(new ParallelCallable((long) 40000000, (long) 2, (long) 13000000));
-                    ParallelFutureTask test = new ParallelFutureTask(new ParallelCallable((long) 40000000, (long) 2, (long) 10000000));
+//                    FutureTask test = new FutureTask(new ParallelCallable((long) 40000000, (long) 2, (long) 40000000));
+//                    FutureTask test = new FutureTask(new ParallelCallable((long) 40000000, (long) 2, (long) 20000000));
+//                    FutureTask test = new FutureTask(new ParallelCallable((long) 40000000, (long) 2, (long) 13000000));
+                    FutureTask test = new FutureTask(new ParallelCallable((long) 40000000, (long) 2, (long) 10000000));
 
-//                    ParallelFutureTask test2 = new ParallelFutureTask(new ParallelCallable((long) 40000000, (long) 1, (long) 1));
-//                    ParallelFutureTask test2 = new ParallelFutureTask(new ParallelCallable((long) 40000000, (long) 20000000, (long) 40000000));
-//                    ParallelFutureTask test2 = new ParallelFutureTask(new ParallelCallable((long) 40000000, (long) 13000000, (long) 26000000));
-                    ParallelFutureTask test2 = new ParallelFutureTask(new ParallelCallable((long) 40000000, (long) 10000000, (long) 20000000));
+//                    FutureTask test2 = new FutureTask(new ParallelCallable((long) 40000000, (long) 1, (long) 1));
+//                    FutureTask test2 = new FutureTask(new ParallelCallable((long) 40000000, (long) 20000000, (long) 40000000));
+//                    FutureTask test2 = new FutureTask(new ParallelCallable((long) 40000000, (long) 13000000, (long) 26000000));
+                    FutureTask test2 = new FutureTask(new ParallelCallable((long) 40000000, (long) 10000000, (long) 20000000));
 //
-//                    ParallelFutureTask test3 = new ParallelFutureTask(new ParallelCallable((long) 40000000, (long) 1, (long) 1));
-//                    ParallelFutureTask test3 = new ParallelFutureTask(new ParallelCallable((long) 40000000, (long) 26000000, (long) 40000000));
-                    ParallelFutureTask test3 = new ParallelFutureTask(new ParallelCallable((long) 40000000, (long) 20000000, (long) 30000000));
+//                    FutureTask test3 = new FutureTask(new ParallelCallable((long) 40000000, (long) 1, (long) 1));
+//                    FutureTask test3 = new FutureTask(new ParallelCallable((long) 40000000, (long) 26000000, (long) 40000000));
+                    FutureTask test3 = new FutureTask(new ParallelCallable((long) 40000000, (long) 20000000, (long) 30000000));
 //
-//                    ParallelFutureTask test4 = new ParallelFutureTask(new ParallelCallable((long) 40000000, (long) 1, (long) 1));
-                    ParallelFutureTask test4 = new ParallelFutureTask(new ParallelCallable((long) 40000000, (long) 30000000, (long) 40000000));
+//                    FutureTask test4 = new FutureTask(new ParallelCallable((long) 40000000, (long) 1, (long) 1));
+                    FutureTask test4 = new FutureTask(new ParallelCallable((long) 40000000, (long) 30000000, (long) 40000000));
 
 //                    ThreadPoolManager.sInstance.mTPE.execute(test);
 
-                    ThreadPoolManager hi = new ThreadPoolManager();
-                    hi.mTPE.execute(test);
-                    hi.mTPE.execute(test2);
-                    hi.mTPE.execute(test3);
-                    hi.mTPE.execute(test4);
+                    ThreadPoolManager.execute(test);
+                    ThreadPoolManager.execute(test2);
+                    ThreadPoolManager.execute(test3);
+                    ThreadPoolManager.execute(test4);
+
                     long heyhoe = -3;
                     try {
                         heyhoe = (Long) test.get();
@@ -145,7 +145,6 @@ public class HomeActivity extends Activity {
                     long result = Math.max(heyhoe4, (Math.max(heyhoe3, (Math.max(heyhoe, heyhoe2)))));
                     editText1.setText(Long.toString(result));
 
-                    hi.mTPE.shutdown();
 
 
 

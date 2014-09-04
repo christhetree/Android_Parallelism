@@ -1,8 +1,5 @@
 package com.christhetree.parallelism_tsp;
 
-import android.os.*;
-import android.os.Process;
-
 import java.util.concurrent.Callable;
 
 /**
@@ -18,6 +15,6 @@ public class ParallelCallable implements Callable<Object> {
     @Override
     public Object call() throws Exception {
 //        android.os.Process.setThreadPriority(Process.THREAD_PRIORITY_DEFAULT);
-        return DifferentTasks.GreatestFactor2(mParams);
+        return ParallelTaskLibrary.GreatestFactor2(mParams);
     }
 }
