@@ -9,6 +9,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.BatteryManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import android.widget.EditText;
 import java.io.File;
 import java.io.FileFilter;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
 import java.util.regex.Pattern;
 
@@ -88,62 +90,93 @@ public class HomeActivity extends Activity {
 //                    FutureTask test = new FutureTask(new ParallelCallable((long) 40000000, (long) 2, (long) 40000000));
 //                    FutureTask test = new FutureTask(new ParallelCallable((long) 40000000, (long) 2, (long) 20000000));
 //                    FutureTask test = new FutureTask(new ParallelCallable((long) 40000000, (long) 2, (long) 13000000));
-                    FutureTask test = new FutureTask(new ParallelCallable((long) 40000000, (long) 2, (long) 10000000));
+                    ParallelCallable lippidy = new ParallelCallable((long) 80000000, (long) 2, (long) 80000000);
+//                    FutureTask test = new FutureTask(lippidy);
 
 //                    FutureTask test2 = new FutureTask(new ParallelCallable((long) 40000000, (long) 1, (long) 1));
 //                    FutureTask test2 = new FutureTask(new ParallelCallable((long) 40000000, (long) 20000000, (long) 40000000));
 //                    FutureTask test2 = new FutureTask(new ParallelCallable((long) 40000000, (long) 13000000, (long) 26000000));
-                    FutureTask test2 = new FutureTask(new ParallelCallable((long) 40000000, (long) 10000000, (long) 20000000));
+//                    FutureTask test2 = new FutureTask(new ParallelCallable((long) 40000000, (long) 10000000, (long) 20000000));
 //
 //                    FutureTask test3 = new FutureTask(new ParallelCallable((long) 40000000, (long) 1, (long) 1));
 //                    FutureTask test3 = new FutureTask(new ParallelCallable((long) 40000000, (long) 26000000, (long) 40000000));
-                    FutureTask test3 = new FutureTask(new ParallelCallable((long) 40000000, (long) 20000000, (long) 30000000));
+//                    FutureTask test3 = new FutureTask(new ParallelCallable((long) 40000000, (long) 20000000, (long) 30000000));
 //
 //                    FutureTask test4 = new FutureTask(new ParallelCallable((long) 40000000, (long) 1, (long) 1));
-                    FutureTask test4 = new FutureTask(new ParallelCallable((long) 40000000, (long) 30000000, (long) 40000000));
+//                    FutureTask test4 = new FutureTask(new ParallelCallable((long) 40000000, (long) 30000000, (long) 40000000));
 
 //                    ThreadPoolManager.sInstance.mTPE.execute(test);
 
-                    ThreadPoolManager.execute(test);
-                    ThreadPoolManager.execute(test2);
-                    ThreadPoolManager.execute(test3);
-                    ThreadPoolManager.execute(test4);
+//                    ThreadPoolManager.execute(test);
+//                    ThreadPoolManager.submit(lippidy);
+
+                    ParallelRunnable yeah = new ParallelRunnable();
+                    ParallelCallable2 yeah2 = new ParallelCallable2();
+                    Future testfuture = ThreadPoolManager.submit(yeah2);
+//                    ThreadPoolManager.execute(yeah);
+
+
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    if(!testfuture.isDone()) {
+                        Log.d("This is a tag", "not done!");
+
+                    }
+
+                    yeah2.cancel = true;
+
+                    while(true) {
+                        if (testfuture.isDone()) {
+                            Log.d("This is a tag", "done!");
+                            break;
+                        }
+                    }
+
+//                    long intermediate = lippidy.getStuff();
+//                    editText1.setText(Long.toString(lippidy.getStuff()));
+
+//                    test.cancel(true);
+//                    ThreadPoolManager.execute(test2);
+//                    ThreadPoolManager.execute(test3);
+//                    ThreadPoolManager.execute(test4);
 
                     long heyhoe = -3;
-                    try {
-                        heyhoe = (Long) test.get();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                    }
+//                    try {
+//                        heyhoe = (Long) lippidy.get();
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+
                     long heyhoe2 = -4;
-                    try {
-                        heyhoe2 = (Long) test2.get();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                    }
+//                    try {
+//                        heyhoe2 = (Long) test2.get();
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    } catch (ExecutionException e) {
+//                        e.printStackTrace();
+//                    }
                     long heyhoe3 = -5;
-                    try {
-                        heyhoe3 = (Long) test3.get();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                    }
+//                    try {
+//                        heyhoe3 = (Long) test3.get();
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    } catch (ExecutionException e) {
+//                        e.printStackTrace();
+//                    }
                     long heyhoe4 = -6;
-                    try {
-                        heyhoe4 = (Long) test4.get();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                    }
+//                    try {
+//                        heyhoe4 = (Long) test4.get();
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    } catch (ExecutionException e) {
+//                        e.printStackTrace();
+//                    }
 
                     long result = Math.max(heyhoe4, (Math.max(heyhoe3, (Math.max(heyhoe, heyhoe2)))));
-                    editText1.setText(Long.toString(result));
+//                    editText1.setText(Long.toString(intermediate));
 
 
 
