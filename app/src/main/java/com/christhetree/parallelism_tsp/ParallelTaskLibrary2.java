@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicReference;
 /**
  * Created by christhetree on 01/09/14.
  */
-public class ParallelTaskLibrary {
+public class ParallelTaskLibrary2 {
     public static boolean GreatestFactor(final long current, final Object[] results, final Object[] taskParams) {
 //        long number = (Long) params[0];
 //        long start = (Long) params[1];

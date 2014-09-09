@@ -17,6 +17,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.christhetree.parallelism_tsp.ParallelTaskLibrary.GreatestFactor;
+
 import java.io.File;
 import java.io.FileFilter;
 import java.util.concurrent.ExecutionException;
@@ -75,7 +77,7 @@ public class HomeActivity extends Activity {
             button1.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     editText1.setText("");
-                    ParallelCallable test = new ParallelCallable((long) 2, (long) 9999999, (long) 10000000);
+                    ParallelCallable test = new ParallelCallable((long) 2, (long) 9999999, new GreatestFactor(), (long) 10000000);
                     Future testfuture = ThreadPoolManager.submit(test);
 
 
