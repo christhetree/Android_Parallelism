@@ -77,37 +77,30 @@ public class HomeActivity extends Activity {
             button1.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     editText1.setText("");
-                    ParallelCallable test = new ParallelCallable((long) 2, (long) 9999999, new GreatestFactor(), (long) 10000000);
-                    Future testfuture = ThreadPoolManager.submit(test);
-
-
-//                    try {
-//                        Thread.sleep(2000);
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//                    if(!testfuture.isDone()) {
-//                        Log.d("This is a tag", "not done!");
-//
-//                    }
-
-//                    while(true) {
-//                        if (testfuture.isDone()) {
-//                            Log.d("This is a tag", "done!");
-//                            break;
-//                        }
-//                    }
-
-
-                    Pair<Object[],Long> heyhoe = null;
+                    ParallelCallable test1 = new ParallelCallable((long) 2, (long) 19999999, new GreatestFactor(), editText1, (long) 80000000);
+//                    ParallelCallable test2 = new ParallelCallable((long) 20000000, (long) 39999999, new GreatestFactor(), (long) 80000000);
+//                    ParallelCallable test3 = new ParallelCallable((long) 40000000, (long) 59999999, new GreatestFactor(), (long) 80000000);
+//                    ParallelCallable test4 = new ParallelCallable((long) 60000000, (long) 79999999, new GreatestFactor(), (long) 80000000);
+                    Future testFuture1 = ThreadPoolManager.submit(test1);
+//                    Future testFuture2 = ThreadPoolManager.submit(test2);
+//                    Future testFuture3 = ThreadPoolManager.submit(test3);
+//                    Future testFuture4 = ThreadPoolManager.submit(test4);
+                    Pair<Object[],Long> testResult1 = null;
+//                    Pair<Object[],Long> testResult2 = null;
+//                    Pair<Object[],Long> testResult3 = null;
+//                    Pair<Object[],Long> testResult4 = null;
                     try {
-                        heyhoe = (Pair<Object[],Long>) testfuture.get();
+                        testResult1 = (Pair<Object[],Long>) testFuture1.get();
+//                        testResult2 = (Pair<Object[],Long>) testFuture2.get();
+//                        testResult3 = (Pair<Object[],Long>) testFuture3.get();
+//                        testResult4 = (Pair<Object[],Long>) testFuture4.get();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    if(heyhoe != null) {
-                        long result = (Long) (heyhoe.first)[0];
-                        editText1.setText(Long.toString(result));
+                    if(testResult1 != null /*&& testResult2 != null && testResult3 != null && testResult4 != null*/) {
+//                        long result = Math.max((Math.max((Math.max((Long) (testResult1.first)[0], (Long) (testResult2.first)[0])), (Long) (testResult3.first)[0])), (Long) (testResult4.first)[0]);
+                        long result = (Long) (testResult1.first)[0];
+//                        editText1.setText(Long.toString(result));
                     }
 
 

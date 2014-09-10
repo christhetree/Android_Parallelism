@@ -1,5 +1,7 @@
 package com.christhetree.parallelism_tsp;
 
+import java.util.concurrent.atomic.AtomicReference;
+
 /**
  * Created by christhetree on 18/08/14.
  */
